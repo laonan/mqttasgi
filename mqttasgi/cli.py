@@ -63,6 +63,7 @@ def main():
         cert=args.cert,
         key=args.key,
         ca_cert=args.cacert,
+        ca_bundle=args.cabundle,
     )
 
     server.run()
