@@ -156,7 +156,7 @@ class Server(object):
                 keyfile=self.key,
             )
             
-         if ca_bundle is not None:
+        if ca_bundle is not None:
             self.client.tls_set(self.ca_bundle, tls_version=ssl.PROTOCOL_TLSv1_2)
 
         self.client.connect(self.host, self.port)
