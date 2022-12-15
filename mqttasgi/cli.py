@@ -33,7 +33,7 @@ def main():
     parser.add_argument("-S", "--cacert", help="MQTT TLS CA certificate",
                         default=os.environ.get("TLS_CA", None))
     parser.add_argument("-B", "--cabundle", help="MQTT CA Bundle crt", 
-                        default=os.environ.get("CA__SERVER_SIGNED", None))
+                        default=os.environ.get("CA_SERVER_SIGNED", None))
 
     parser.add_argument("application",
                         help=("The ASGI application instance to use as "
