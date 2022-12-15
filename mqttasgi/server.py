@@ -1,4 +1,5 @@
 import os
+import ssl
 import asyncio
 import functools
 import logging
@@ -15,7 +16,7 @@ _logger = logging.getLogger(__name__)
 class Server(object):
     def __init__(self, application, host, port, username=None, password=None,
                  client_id=2407, mqtt_type_pub=None, mqtt_type_usub=None, mqtt_type_sub=None,
-                 mqtt_type_msg=None, connect_max_retries=3, logger=None, clean_session=True, cert=None, key=None, ca_cert=None):
+                 mqtt_type_msg=None, connect_max_retries=3, logger=None, clean_session=True, cert=None, key=None, ca_cert=None, ca_bundle=None):
 
         self.application_type = application
         self.application_data = {}
@@ -44,6 +45,7 @@ class Server(object):
         self.cert = cert
         self.key = key
         self.ca_cert = ca_cert
+        self.ca_bundle = ca_bundle
         self.client.on_connect = self._on_connect
         self.client.on_disconnect = self._on_disconnect
         self.connect_max_retries = connect_max_retries
@@ -153,7 +155,9 @@ class Server(object):
                 certfile=self.cert,
                 keyfile=self.key,
             )
-
+            
+         if ca_bundle is not None:
+            self.client.tls_set(self.ca_bundle, tls_version=ssl.PROTOCOL_TLSv1_2)
 
         self.client.connect(self.host, self.port)
 
